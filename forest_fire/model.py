@@ -10,7 +10,8 @@ class ForestFire(Model):
     """
     Simple Forest Fire model.
     """
-
+    
+    last_escaped_tax = 0
     def __init__(self, width=100, height=100, density=0.65, start_pos_x=0, start_pos_y=0, intensity=80):
         """
         Create a new forest fire model.
@@ -32,6 +33,8 @@ class ForestFire(Model):
                 "Fine": lambda m: self.count_type(m, "Fine"),
                 "On Fire": lambda m: self.count_type(m, "On Fire"),
                 "Burned Out": lambda m: self.count_type(m, "Burned Out"),
+                "Escaped the Fire": lambda m: self.count_type(m, "Escaped the Fire"),
+                "Escaped Tax": lambda m: self.escaped_tax(m),
             }
         )
 
@@ -60,9 +63,7 @@ class ForestFire(Model):
         # Halt if no more fire
         if self.count_type(self, "On Fire") == 0:
             self.running = False
-            forest_agent = self.datacollector.get_agent_vars_dataframe()
             forest_model = self.datacollector.get_model_vars_dataframe()
-            forest_agent.to_csv('forest_agent_density_' + str(self.density) + '_start-pos-x_' + str(self.start_pos_x) + '_start-pos-y_' + str(self.start_pos_y) + '.csv')
             forest_model.to_csv('forest_model_density_' + str(self.density) + '_start-pos-x_' + str(self.start_pos_x) + '_start-pos-y_' + str(self.start_pos_y) + '.csv')
 
     @staticmethod
@@ -70,8 +71,12 @@ class ForestFire(Model):
         """
         Helper method to count trees in a given condition in a given model.
         """
-        count = 0
-        for tree in model.schedule.agents:
-            if tree.condition == tree_condition:
-                count += 1
-        return count
+        agents = model.schedule.agents
+        return len([tree for tree in agents if tree.condition == tree_condition])
+
+    @staticmethod
+    def escaped_tax(model):
+        escaped_tax = model.count_type(model, "Escaped the Fire")
+        escaped_tax -= model.last_escaped_tax
+        model.last_escaped_tax = escaped_tax
+        return escaped_tax

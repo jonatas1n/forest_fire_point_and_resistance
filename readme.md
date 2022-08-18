@@ -22,3 +22,11 @@ Definindo a posição inicial do incêndio, o modelo permite que sejam observado
 No diretório forest_fire_point_and_resistance, execute o comando ``mesa runserver``.
 
 Aguarde o modelo ser aberto no seu navegador. (Caso não seja aberto, acesse o link [http://127.0.0.1:8521](http://127.0.0.1:8521)); Logo após, clique em Reset e depois em Run.
+
+
+## Os arquivos CSV's
+
+- **Fine**: Árvores que não foram atingidas pelo fogo.
+- **On Fire**: Árvores que estão em chamas.
+- **Burned Out**: Árvores que foram queimadas pelo fogo.
+- **Escaped the Fire**: Árvores que o fogo alcançou, mas não foram incendiadas.
