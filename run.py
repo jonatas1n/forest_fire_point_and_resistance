@@ -1,3 +1,3 @@
-from forest_fire.server import server
+from source.server import server
 
 server.launch()

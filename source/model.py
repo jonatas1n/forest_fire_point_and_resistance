@@ -6,7 +6,7 @@ from mesa.time import RandomActivation
 from .agent import TreeCell
 
 
-class ForestFire(Model):
+class ForestFireResistance(Model):
     """
     Simple Forest Fire model.
     """
