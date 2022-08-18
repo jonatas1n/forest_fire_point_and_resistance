@@ -1,6 +1,7 @@
 from datetime import datetime
 import pandas as pd
 from mesa import batch_run
+
 # importa o modelo de simulacão desenvolvido
 from source.model import ForestFireResistance
 import numpy as np
@@ -32,16 +33,21 @@ results = batch_run(
 
 
 # converte os dados das simulacões em planilhas (dataframes)
-results_df = pd . DataFrame(results)
+results_df = pd.DataFrame(results)
 
 # gera uma string com data e hora
-now = str(datetime . now()). replace(" : ", " -"). replace(" ", " -")
+now = str(datetime.now()).replace(" : ", " -").replace(" ", " -")
 
 # define um prefixo para o nome do arquivo que vai guardar os dados do modelo
 # contendo alguns dados dos experimentos
-file_name_suffix = (" _iter_ " + str(experiments_per_parameter_configuration) +
-                    " _steps_ " + str(max_steps_per_simulation) + " _ " +
-                    now)
+file_name_suffix = (
+    " _iter_ "
+    + str(experiments_per_parameter_configuration)
+    + " _steps_ "
+    + str(max_steps_per_simulation)
+    + " _ "
+    + now
+)
 
 # define um prefixo para o nome para o arquivo de dados
 model_name_preffix = "BoltzmannWealthDonationModel"
