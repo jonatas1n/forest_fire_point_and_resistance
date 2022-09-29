@@ -34,7 +34,7 @@ class TreeCell(Agent):
             if randint(1, 100) >= self.intensity / 4 or self.model.wind_speed == 0:
                 return
 
-            dispersion_distance = randint(1, int(self.model.wind_speed)) * MAX_DISPERSION
+            dispersion_distance = randint(1, self.model.wind_speed) * MAX_DISPERSION
             x, y = self.pos
             x += sin(self.model.wind_direction) * dispersion_distance
             y += cos(self.model.wind_direction) * dispersion_distance
