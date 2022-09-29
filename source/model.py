@@ -41,7 +41,7 @@ class ForestFireResistance(Model):
                 "Fine": lambda m: self.count_type(m, "Fine"),
                 "On Fire": lambda m: self.count_type(m, "On Fire"),
                 "Burned Out": lambda m: self.count_type(m, "Burned Out"),
-                "Escaped the Fire": lambda m: self.count_type(m, "Escaped the Fire"),
+                "Secondary Flame": lambda m: self.count_type(m, "Secondary Flame"),
             }
         )
 
@@ -67,7 +67,7 @@ class ForestFireResistance(Model):
         self.datacollector.collect(self)
 
         # Halt if no more fire
-        if self.count_type(self, "On Fire") == 0:
+        if self.count_type(self, "On Fire") + self.count_type(self, "Secondary Flame") == 0:
             self.running = False
             self.datacollector.collect(self)
 
