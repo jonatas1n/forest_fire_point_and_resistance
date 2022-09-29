@@ -39,7 +39,7 @@ model_params = {
     "width": 100,
     "density": UserSettableParameter("slider", "Tree density", 0.65, 0.01, 1.0, 0.01),
     "intensity": UserSettableParameter("slider", "Fire Intensity", 80, 1, 100, 1),
-    "wind_speed": UserSettableParameter("slider", "Wind Speed", 5, 0, 10, .5),
+    "wind_speed": UserSettableParameter("slider", "Wind Speed", 5, 0, 10, 1),
 }
 
 server = ModularServer(
