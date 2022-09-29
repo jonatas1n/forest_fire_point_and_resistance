@@ -12,6 +12,7 @@ class ForestFireResistance(Model):
     """
 
     last_escaped_tax = 0
+    wind_direction = 90
 
     def __init__(
         self,
@@ -19,8 +20,7 @@ class ForestFireResistance(Model):
         height=100,
         density=0.5,
         intensity=80,
-        wind_direction=0,
-        wind_force=5
+        wind_speed=5
     ):
         """
         Create a new forest fire model.
@@ -34,8 +34,7 @@ class ForestFireResistance(Model):
         self.grid = Grid(width, height, torus=False)
         self.density = density
         self.intensity = intensity
-        self.wind_direction = wind_direction
-        self.wind_force = wind_force
+        self.wind_speed = wind_speed
 
         self.datacollector = DataCollector(
             {

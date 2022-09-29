@@ -9,6 +9,7 @@ params = {
     "width": 100,
     "height": 100,
     "intensity": range(1, 101, 10),
+    "wind_speed": range(0, 11, 2),
 }
 
 experiments_per_parameter_configuration = 100
