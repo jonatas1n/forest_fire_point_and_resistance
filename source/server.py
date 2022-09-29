@@ -32,6 +32,8 @@ pie_chart = PieChartModule(
     [{"Label": label, "Color": color} for (label, color) in COLORS.items()]
 )
 
+secondary_flame_chart = ChartModule([{"Label": "Secondary flame", "Color": "#f6781d"}])
+
 model_params = {
     "height": 100,
     "width": 100,

@@ -11,7 +11,7 @@ class ForestFireResistance(Model):
     Simple Forest Fire model.
     """
 
-    last_escaped_tax = 0
+    secondary_flame_count = 0
     wind_direction = 90
 
     def __init__(
@@ -42,6 +42,7 @@ class ForestFireResistance(Model):
                 "On Fire": lambda m: self.count_type(m, "On Fire"),
                 "Burned Out": lambda m: self.count_type(m, "Burned Out"),
                 "Secondary Flame": lambda m: self.count_type(m, "Secondary Flame"),
+                "Secondary Flame Count": lambda m: self.secondary_flame_count,
             }
         )
 

@@ -46,8 +46,9 @@ class TreeCell(Agent):
                 pass
 
         if self.condition == "Secondary Flame":
+            self.model.secondary_flame_count += 1
             for neighbor in self.model.grid.neighbor_iter(self.pos):
                 if neighbor.condition == "Fine":
                     if randint(1, 100) < self.intensity * SECONDARY_TAX:
-                        neighbor.condition = "On Fire"
+                        neighbor.condition = 'Secondary Flame'
             self.condition = "Burned Out"
