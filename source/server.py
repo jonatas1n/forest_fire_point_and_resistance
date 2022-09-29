@@ -16,7 +16,6 @@ COLORS = {
     "Secondary Flame": "#f6781d",
 }
 
-
 def forest_fire_portrayal(tree):
     if tree is None:
         return
@@ -36,9 +35,6 @@ tree_chart = ChartModule(
 pie_chart = PieChartModule(
     [{"Label": label, "Color": color} for (label, color) in COLORS.items()]
 )
-burned_pie = BarChartModule(
-    [{"Label": label, "Color": color} for (label, color) in COLORS.items()]
-)
 
 secondary_flame_chart = ChartModule([{"Label": "Secondary flame", "Color": "#f6781d"}])
 
@@ -52,7 +48,7 @@ model_params = {
 
 server = ModularServer(
     ForestFireResistance,
-    [canvas_element, tree_chart, pie_chart, burned_pie],
+    [canvas_element, tree_chart, pie_chart],
     "Forest Fire",
     model_params,
 )

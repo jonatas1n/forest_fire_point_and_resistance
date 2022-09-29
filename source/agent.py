@@ -5,7 +5,6 @@ from math import sin, cos, floor
 MAX_DISPERSION = 5
 SECONDARY_TAX = 1.5
 
-
 class TreeCell(Agent):
     def __init__(self, pos, model):
         """
@@ -45,6 +44,7 @@ class TreeCell(Agent):
             try:
                 tree = self.model.grid[x][y]
                 if tree.condition == "Fine":
+                    self.model.secondary_flame_count += 1
                     tree.condition = "Secondary Flame"
             except:
                 pass
