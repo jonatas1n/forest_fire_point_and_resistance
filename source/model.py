@@ -17,8 +17,10 @@ class ForestFireResistance(Model):
         self,
         width=100,
         height=100,
-        density=0.65,
+        density=0.5,
         intensity=80,
+        wind_direction=0,
+        wind_force=5
     ):
         """
         Create a new forest fire model.
@@ -32,6 +34,8 @@ class ForestFireResistance(Model):
         self.grid = Grid(width, height, torus=False)
         self.density = density
         self.intensity = intensity
+        self.wind_direction = wind_direction
+        self.wind_force = wind_force
 
         self.datacollector = DataCollector(
             {
@@ -39,7 +43,6 @@ class ForestFireResistance(Model):
                 "On Fire": lambda m: self.count_type(m, "On Fire"),
                 "Burned Out": lambda m: self.count_type(m, "Burned Out"),
                 "Escaped the Fire": lambda m: self.count_type(m, "Escaped the Fire"),
-                "Escaped Tax": lambda m: self.escaped_tax(m),
             }
         )
 
@@ -76,10 +79,3 @@ class ForestFireResistance(Model):
         """
         agents = model.schedule.agents
         return len([tree for tree in agents if tree.condition == tree_condition])
-
-    @staticmethod
-    def escaped_tax(model):
-        escaped_tax = model.count_type(model, "Escaped the Fire")
-        escaped_tax -= model.last_escaped_tax
-        model.last_escaped_tax = escaped_tax
-        return escaped_tax

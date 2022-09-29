@@ -8,7 +8,7 @@ COLORS = {
     "Fine": "#00AA00",
     "On Fire": "#880000",
     "Burned Out": "#000000",
-    "Escaped the Fire": "#f6781d",
+    "Secondary Flame": "#f6781d",
 }
 
 
@@ -28,7 +28,6 @@ canvas_element = CanvasGrid(forest_fire_portrayal, 100, 100, 500, 500)
 tree_chart = ChartModule(
     [{"Label": label, "Color": color} for (label, color) in COLORS.items()]
 )
-escaped_chart = ChartModule([{"Label": "Escaped the Fire", "Color": "#f6781d"}])
 pie_chart = PieChartModule(
     [{"Label": label, "Color": color} for (label, color) in COLORS.items()]
 )
@@ -38,10 +37,13 @@ model_params = {
     "width": 100,
     "density": UserSettableParameter("slider", "Tree density", 0.65, 0.01, 1.0, 0.01),
     "intensity": UserSettableParameter("slider", "Fire Intensity", 80, 1, 100, 1),
+    "wind_force": UserSettableParameter("slider", "Wind Speed", 5, 1, 10, .5),
+    "wind_direction": UserSettableParameter("slider", "Wind Direction", 0, 1, 359, 1),
 }
+
 server = ModularServer(
     ForestFireResistance,
-    [canvas_element, tree_chart, escaped_chart, pie_chart],
+    [canvas_element, tree_chart, pie_chart],
     "Forest Fire",
     model_params,
 )
