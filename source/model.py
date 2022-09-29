@@ -18,8 +18,6 @@ class ForestFireResistance(Model):
         width=100,
         height=100,
         density=0.65,
-        start_pos_x=0,
-        start_pos_y=0,
         intensity=80,
     ):
         """
@@ -33,8 +31,6 @@ class ForestFireResistance(Model):
         self.schedule = RandomActivation(self)
         self.grid = Grid(width, height, torus=False)
         self.density = density
-        self.start_pos_x = start_pos_x
-        self.start_pos_y = start_pos_y
         self.intensity = intensity
 
         self.datacollector = DataCollector(
@@ -48,17 +44,11 @@ class ForestFireResistance(Model):
         )
 
         # Place a tree in each cell with Prob = density
-        for (contents, x, y) in self.grid.coord_iter():
+        for (_, x, y) in self.grid.coord_iter():
             if self.random.random() < density:
                 # Create a tree
                 new_tree = TreeCell((x, y), self, intensity)
-                # Set all trees in the first column on fire.
-                if (
-                    x >= start_pos_x + -1
-                    and x <= start_pos_x + 1
-                    and y >= start_pos_y + -1
-                    and y <= start_pos_y + 1
-                ):
+                if (49 <= x >= 51 and 49 <= y >= 51 ):
                     new_tree.condition = "On Fire"
                 self.grid._place_agent((x, y), new_tree)
                 self.schedule.add(new_tree)
@@ -77,16 +67,7 @@ class ForestFireResistance(Model):
         # Halt if no more fire
         if self.count_type(self, "On Fire") == 0:
             self.running = False
-            forest_model = self.datacollector.get_model_vars_dataframe()
-            forest_model.to_csv(
-                "forest_model_density_"
-                + str(self.density)
-                + "_start-pos-x_"
-                + str(self.start_pos_x)
-                + "_start-pos-y_"
-                + str(self.start_pos_y)
-                + ".csv"
-            )
+            self.datacollector.collect(self)
 
     @staticmethod
     def count_type(model, tree_condition):
