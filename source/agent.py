@@ -29,6 +29,7 @@ class TreeCell(Agent):
                         neighbor.condition = "On Fire"
                 elif neighbor.condition == "Secondary Flame":
                     neighbor.condition = "On Fire"
+            self.condition = "Burned Out"
 
             if randint(1, 100) >= self.intensity / 4 or self.model.wind_speed == 0:
                 return
@@ -50,5 +51,4 @@ class TreeCell(Agent):
                 if neighbor.condition == "Fine":
                     if randint(1, 100) < self.intensity * SECONDARY_TAX:
                         neighbor.condition = 'Secondary Flame'
-        
-        self.condition = "Burned Out"
+            self.condition = "Burned Out"
