@@ -14,14 +14,7 @@ class ForestFireResistance(Model):
     secondary_flame_count = 0
     wind_direction = 90
 
-    def __init__(
-        self,
-        width=100,
-        height=100,
-        density=0.5,
-        intensity=80,
-        wind_speed=5
-    ):
+    def __init__(self, width=100, height=100, density=0.5, intensity=80, wind_speed=5):
         """
         Create a new forest fire model.
 
@@ -50,8 +43,8 @@ class ForestFireResistance(Model):
         for (_, x, y) in self.grid.coord_iter():
             if self.random.random() < density:
                 # Create a tree
-                new_tree = TreeCell((x, y), self, intensity)
-                if (49 <= x <= 51 and 49 <= y <= 51 ):
+                new_tree = TreeCell((x, y), self)
+                if 49 <= x <= 51 and 49 <= y <= 51:
                     new_tree.condition = "On Fire"
                 self.grid._place_agent((x, y), new_tree)
                 self.schedule.add(new_tree)
@@ -68,7 +61,10 @@ class ForestFireResistance(Model):
         self.datacollector.collect(self)
 
         # Halt if no more fire
-        if self.count_type(self, "On Fire") + self.count_type(self, "Secondary Flame") == 0:
+        if (
+            self.count_type(self, "On Fire") + self.count_type(self, "Secondary Flame")
+            == 0
+        ):
             self.running = False
             self.datacollector.collect(self)
 

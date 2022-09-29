@@ -1,4 +1,9 @@
-from mesa.visualization.modules import CanvasGrid, ChartModule, PieChartModule
+from mesa.visualization.modules import (
+    CanvasGrid,
+    ChartModule,
+    PieChartModule,
+    BarChartModule,
+)
 from mesa.visualization.ModularVisualization import ModularServer
 from mesa.visualization.UserParam import UserSettableParameter
 
@@ -31,6 +36,9 @@ tree_chart = ChartModule(
 pie_chart = PieChartModule(
     [{"Label": label, "Color": color} for (label, color) in COLORS.items()]
 )
+burned_pie = BarChartModule(
+    [{"Label": label, "Color": color} for (label, color) in COLORS.items()]
+)
 
 secondary_flame_chart = ChartModule([{"Label": "Secondary flame", "Color": "#f6781d"}])
 
@@ -44,7 +52,7 @@ model_params = {
 
 server = ModularServer(
     ForestFireResistance,
-    [canvas_element, tree_chart, pie_chart],
+    [canvas_element, tree_chart, pie_chart, burned_pie],
     "Forest Fire",
     model_params,
 )

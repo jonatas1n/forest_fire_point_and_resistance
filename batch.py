@@ -5,11 +5,11 @@ from mesa.batchrunner import batch_run
 from source.model import ForestFireResistance
 
 params = {
-    "density": [x/10 for x in range(0, 11, 1)],
+    "density": [x / 10 for x in range(0, 11, 2)],
     "width": 100,
     "height": 100,
-    "intensity": range(1, 101, 10),
-    "wind_speed": range(0, 11, 2),
+    "intensity": range(1, 101, 20),
+    "wind_speed": range(0, 11, 3),
 }
 
 experiments_per_parameter_configuration = 100
@@ -44,4 +44,4 @@ model_name_preffix = "ForestFireResistance"
 
 file_name = model_name_preffix + "_model_data" + file_name_suffix + ".csv"
 
-results_df.to_csv('output/' + file_name)
+results_df.to_csv("output/" + file_name)
