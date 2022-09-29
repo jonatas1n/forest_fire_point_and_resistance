@@ -48,7 +48,7 @@ class ForestFireResistance(Model):
             if self.random.random() < density:
                 # Create a tree
                 new_tree = TreeCell((x, y), self, intensity)
-                if (49 <= x >= 51 and 49 <= y >= 51 ):
+                if (49 <= x <= 51 and 49 <= y <= 51 ):
                     new_tree.condition = "On Fire"
                 self.grid._place_agent((x, y), new_tree)
                 self.schedule.add(new_tree)
