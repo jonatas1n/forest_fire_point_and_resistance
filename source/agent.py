@@ -3,8 +3,6 @@ from random import randint
 from math import sin, cos, floor
 
 MAX_DISPERSION = 5
-SECONDARY_TAX = 1.5
-
 class TreeCell(Agent):
     def __init__(self, pos, model):
         """
@@ -52,7 +50,6 @@ class TreeCell(Agent):
         if self.condition == "Secondary Flame":
             self.model.secondary_flame_count += 1
             for neighbor in self.model.grid.neighbor_iter(self.pos):
-                intensity_limit = self.model.intensity * SECONDARY_TAX
-                if neighbor.condition == "Fine" and randint(1, 100) < intensity_limit:
+                if neighbor.condition == "Fine" and randint(1, 10) < self.model.wind_speed:
                     neighbor.condition = "Secondary Flame"
             self.condition = "Burned Out"
