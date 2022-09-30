@@ -39,13 +39,11 @@ class TreeCell(Agent):
             x += sin(self.model.wind_direction) * dispersion_distance
             y += cos(self.model.wind_direction) * dispersion_distance
             x, y = floor(x), floor(y)
-            try:
+            if 0 <= x <= self.model.grid.width and 0 <= y <= self.model.grid.height:
                 tree = self.model.grid[x][y]
                 if tree.condition == "Fine":
                     self.model.secondary_flame_count += 1
                     tree.condition = "Secondary Flame"
-            except:
-                pass
 
         if self.condition == "Secondary Flame":
             self.model.secondary_flame_count += 1
