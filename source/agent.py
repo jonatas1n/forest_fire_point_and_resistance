@@ -21,9 +21,9 @@ class TreeCell(Agent):
         """
         if self.condition == "On Fire":
             for neighbor in self.model.grid.neighbor_iter(self.pos):
-                if neighbor.condition == "Fine":
-                    if randint(1, 100) < self.model.intensity:
-                        neighbor.condition = "On Fire"
+                will_get_fire = randint(1, 100) < self.model.intensity
+                if neighbor.condition == "Fine" and will_get_fire:
+                    neighbor.condition = "On Fire"
                 elif neighbor.condition == "Secondary Flame":
                     neighbor.condition = "On Fire"
             self.condition = "Burned Out"
